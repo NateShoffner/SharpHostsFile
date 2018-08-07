@@ -1,0 +1,22 @@
+﻿<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>SharpHostsFile</id>
+    <version>1.0</version>
+    <title>SharpHostsFile</title>
+    <authors>Nate Shoffner</authors>
+    <owners>Nate Shoffner</owners>
+    <licenseUrl>https://github.com/NateShoffner/SharpHostsFile/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/NateShoffner/SharpHostsFile</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description> Tabster file functionality and types. </description>
+    <releaseNotes>v1.0 - 7/27/2018:
+	* Initial deployment.</releaseNotes>
+    <copyright>Copyright Nate Shoffner 2018</copyright>
+    <tags>hosts</tags>
+  </metadata>
+  <files>
+    <file src="bin\Release\SharpHostsFile.dll" target="lib\net35\SharpHostsFile.dll" />
+    <file src="bin\Release\SharpHostsFile.XML" target="lib\net35\SharpHostsFile.XML" />
+  </files>
+</package>
