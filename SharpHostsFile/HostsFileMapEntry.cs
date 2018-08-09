@@ -8,7 +8,7 @@ namespace SharpHostsFile
     /// <summary>
     ///     Represents a hosts file map entry.
     /// </summary>
-    public class HostsFileMapEntry : HostsFileEntryBase
+    public class HostsFileMapEntry : HostsFileEntryBase, IHostsFileEntry
     {
         /// <summary>
         ///     Pattern to match hosts file map entry.
