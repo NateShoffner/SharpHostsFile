@@ -5,15 +5,33 @@ using System.Text.RegularExpressions;
 
 namespace SharpHostsFile
 {
-    public class HostsFileMapEntry : HostsFileEntryBase, IHostsFileEntry
+    /// <summary>
+    ///     Represents a hosts file map entry.
+    /// </summary>
+    public class HostsFileMapEntry : HostsFileEntryBase
     {
+        /// <summary>
+        ///     Pattern to match hosts file map entry.
+        /// </summary>
         public static readonly Regex Pattern = new Regex(@"^\s*(?<address>\S+)\s+(?<hostname>\S+)\s*($|#(?<comment>\S+))", RegexOptions.Compiled);
 
-
+        /// <summary>
+        ///     Initializes a new instance of the SharpHostsFile.HostsFileMapEntry class.
+        /// </summary>
+        /// <param name="address">Host entry IP address.</param>
+        /// <param name="hostname">Host entry hostname.</param>
+        /// <param name="comment">Host entry comment.</param>
         public HostsFileMapEntry(IPAddress address, string hostname, string comment = null) : this(string.Empty, address, hostname, comment)
         {
         }
 
+        /// <summary>
+        ///     Initializes a new HostsFileMapEntry object.
+        /// </summary>
+        /// <param name="rawLine">The raw host entry line.</param>
+        /// <param name="address">Host entry IP address.</param>
+        /// <param name="hostname">Host entry hostname.</param>
+        /// <param name="comment">Host entry comment.</param>
         public HostsFileMapEntry(string rawLine, IPAddress address, string hostname, string comment = null) : base(rawLine)
         {
             RawLine = rawLine;
@@ -22,21 +40,42 @@ namespace SharpHostsFile
             Comment = comment;
         }
 
+        /// <summary>
+        ///     Host entry IP address.
+        /// </summary>
         public IPAddress Address { get; set; }
 
+        /// <summary>
+        ///     Host entry hostname.
+        /// </summary>
         public string Hostname { get; set; }
 
+        /// <summary>
+        ///     Host entry comment.
+        /// </summary>
         public string Comment { get; set; }
 
         #region Implementation of IHostsFileEntry
 
+        /// <summary>
+        ///     Entry line number.
+        /// </summary>
         public int LineNumber { get; set; }
 
+        /// <summary>
+        ///     Returns the string reprsentation of the hosts entry.
+        /// </summary>
+        /// <returns></returns>
         public override string ToString()
         {
             return $"{Address} {Hostname}{(Comment != null ? $" {Comment}" : "")}";
         }
 
+        /// <summary>
+        ///     Returns the string reprsentation of the hosts entry.
+        /// </summary>
+        /// <param name="preserveFormatting">Preserves formatting, including whitespace of raw entry line.</param>
+        /// <returns></returns>
         public string ToString(bool preserveFormatting)
         {
             if (!string.IsNullOrEmpty(RawLine) && preserveFormatting)

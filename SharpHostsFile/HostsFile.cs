@@ -6,12 +6,22 @@ using System.Net;
 
 namespace SharpHostsFile
 {
+    /// <summary>
+    ///     Represents a Windows hosts file.
+    /// </summary>
     public class HostsFile : IList<IHostsFileEntry>
     {
         private readonly List<IHostsFileEntry> _entries = new List<IHostsFileEntry>();
 
+        /// <summary>
+        ///     Hosts file entries.
+        /// </summary>
         public IReadOnlyCollection<IHostsFileEntry> Entries => _entries.AsReadOnly();
 
+        /// <summary>
+        ///     Reads a hosts file from the specified location.
+        /// </summary>
+        /// <param name="fileName">The file path for the hosts file.</param>
         public void Load(string fileName)
         {
             _entries.Clear();
@@ -61,6 +71,11 @@ namespace SharpHostsFile
             }
         }
 
+        /// <summary>
+        ///     Saves a hosts file to the specified location.
+        /// </summary>
+        /// <param name="fileName">The file path for the hosts file.</param>
+        /// <param name="preserveFormatting">Preserves any formatting, including whitespace for hosts file entries.</param>
         public void Save(string fileName, bool preserveFormatting = true)
         {
             if (fileName == null)
@@ -75,16 +90,30 @@ namespace SharpHostsFile
             }
         }
 
+        /// <summary>
+        ///     Searches for an entry that matches the conditions defined by the specified predicate.
+        /// </summary>
+        /// <param name="match">The System.Predicate`1 delegate that defines the conditions of the elements to search for.</param>
+        /// <returns></returns>
         public IHostsFileEntry Find(Predicate<IHostsFileEntry> match)
         {
             return _entries.Find(match);
         }
 
+        /// <summary>
+        ///     Retrieves all the entries that match the conditions defined by the specified predicate.
+        /// </summary>
+        /// <param name="match">The System.Predicate`1 delegate that defines the conditions of the elements to search for.</param>
+        /// <returns></returns>
         public List<IHostsFileEntry> FindAll(Predicate<IHostsFileEntry> match)
         {
             return _entries.FindAll(match);
         }
 
+        /// <summary>
+        ///     Returns the default system hosts file path.
+        /// </summary>
+        /// <returns></returns>
         public static string GetDefaultHostsFilePath()
         {
             var hostsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.System), "drivers\\etc\\hosts");
@@ -152,21 +181,39 @@ namespace SharpHostsFile
 
         #region Implementation of IList<IHostsFileEntry>
 
+        /// <summary>
+        ///     Searches for the specified entry and returns the zero-based index of the first occurance.
+        /// </summary>
+        /// <param name="entry">The entry to search for.</param>
+        /// <returns></returns>
         public int IndexOf(IHostsFileEntry entry)
         {
             return _entries.IndexOf(entry);
         }
 
+        /// <summary>
+        ///     Inserts an entry at the specified index.
+        /// </summary>
+        /// <param name="index">The index at which to insert the entry.</param>
+        /// <param name="entry">The entry to insert.</param>
         public void Insert(int index, IHostsFileEntry entry)
         {
             _entries.Insert(index, entry);
         }
 
+        /// <summary>
+        ///     Removes the entry at the specified index;
+        /// </summary>
+        /// <param name="index"></param>
         public void RemoveAt(int index)
         {
             _entries.RemoveAt(index);
         }
 
+        /// <summary>
+        ///     Gets or sets the entry at the specified index.
+        /// </summary>
+        /// <param name="index">The index of the entry to get or set.</param>
         public IHostsFileEntry this[int index]
         {
             get => _entries[index];
