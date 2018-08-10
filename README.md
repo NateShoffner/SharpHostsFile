@@ -5,8 +5,13 @@ SharpHostsFile
 
 SharpHostsFile is a .NET wrapper library for the Windows hosts file.
 
-![](https://i.imgur.com/cqOmSGW.png)
-
+```cs
+var hostsFile = new HostsFile();
+hostsFile.Load(HostsFile.GetDefaultHostsFilePath());
+hostsFile.Add(new HostsFileMapEntry(IPAddress.Loopback, "github.com"));
+hostsFile.Save(HostsFile.GetDefaultHostsFilePath());
+```  
+            
  ### License ###
 
     Copyright 2018 Nate Shoffner
