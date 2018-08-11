@@ -9,14 +9,14 @@ namespace SharpHostsFile
     /// <summary>
     ///     Represents a Windows hosts file.
     /// </summary>
-    public class HostsFile : IList<IHostsFileEntry>
+    public class HostsFile : IList<HostsFileEntryBase>
     {
-        private readonly List<IHostsFileEntry> _entries = new List<IHostsFileEntry>();
+        private readonly List<HostsFileEntryBase> _entries = new List<HostsFileEntryBase>();
 
         /// <summary>
         ///     Hosts file entries.
         /// </summary>
-        public IReadOnlyCollection<IHostsFileEntry> Entries => _entries.AsReadOnly();
+        public IReadOnlyCollection<HostsFileEntryBase> Entries => _entries.AsReadOnly();
 
         /// <summary>
         ///     Reads a hosts file from the specified location.
@@ -41,7 +41,7 @@ namespace SharpHostsFile
                 {
                     var type = GetHostsFileEntryType(line);
 
-                    IHostsFileEntry entry = null;
+                    HostsFileEntryBase entry = null;
 
                     if (type != null)
                     {
@@ -95,7 +95,7 @@ namespace SharpHostsFile
         /// </summary>
         /// <param name="match">The System.Predicate`1 delegate that defines the conditions of the elements to search for.</param>
         /// <returns></returns>
-        public IHostsFileEntry Find(Predicate<IHostsFileEntry> match)
+        public HostsFileEntryBase Find(Predicate<HostsFileEntryBase> match)
         {
             return _entries.Find(match);
         }
@@ -105,7 +105,7 @@ namespace SharpHostsFile
         /// </summary>
         /// <param name="match">The System.Predicate`1 delegate that defines the conditions of the elements to search for.</param>
         /// <returns></returns>
-        public List<IHostsFileEntry> FindAll(Predicate<IHostsFileEntry> match)
+        public List<HostsFileEntryBase> FindAll(Predicate<HostsFileEntryBase> match)
         {
             return _entries.FindAll(match);
         }
@@ -134,7 +134,11 @@ namespace SharpHostsFile
 
         #region Implementation of IEnumerable
 
-        public IEnumerator<IHostsFileEntry> GetEnumerator()
+        /// <summary>
+        ///     Returns an enumerator that iterates through the host entries.
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerator<HostsFileEntryBase> GetEnumerator()
         {
             return _entries.GetEnumerator();
         }
@@ -146,47 +150,78 @@ namespace SharpHostsFile
 
         #endregion
 
-        #region Implementation of ICollection<IHostsFileEntry>
+        #region Implementation of ICollection<HostsFileEntryBase>
 
-        public void Add(IHostsFileEntry entry)
+        /// <summary>
+        ///     Adds an entry to the hosts file.
+        /// </summary>
+        /// <param name="entry">The hosts entry to add.</param>
+        public void Add(HostsFileEntryBase entry)
         {
             _entries.Add(entry);
         }
 
+        /// <summary>
+        ///     Clears all host entries.
+        /// </summary>
         public void Clear()
         {
             _entries.Clear();
         }
 
-        public bool Contains(IHostsFileEntry entry)
+        /// <summary>
+        ///     Determines whether an entry exists in the hosts file.
+        /// </summary>
+        /// <param name="entry">The host entry to check for.</param>
+        public bool Contains(HostsFileEntryBase entry)
         {
             return _entries.Contains(entry);
         }
 
-        public void CopyTo(IHostsFileEntry[] array, int arrayIndex)
+        /// <summary>
+        ///     Copies the entire System.Collections.Generic.List`1 to a compatible one-dimensional array, starting at the
+        ///     specified index of the target array.
+        /// </summary>
+        /// <param name="array">
+        ///     The one-dimensional System.Array that is the destination of the elements copied from
+        ///     System.Collections.Generic.List`1. The System.Array must have zero-based indexing.
+        /// </param>
+        /// <param name="arrayIndex">The zero-based index in array at which copying begins.</param>
+        public void CopyTo(HostsFileEntryBase[] array, int arrayIndex)
         {
             _entries.CopyTo(array, arrayIndex);
         }
 
-        public bool Remove(IHostsFileEntry entry)
+        /// <summary>
+        ///     Removes a host entry from the hosts file.
+        /// </summary>
+        /// <param name="entry">The host entry to remove.</param>
+        /// <returns>Returns true if the item is removed, otherwise false.</returns>
+        public bool Remove(HostsFileEntryBase entry)
         {
             return _entries.Remove(entry);
         }
 
+        /// <summary>
+        ///     Gets the number of host entries.
+        /// </summary>
         public int Count => _entries.Count;
 
+        /// <summary>
+        ///     Determines if the hosts file is read-only.
+        /// </summary>
         public bool IsReadOnly => false;
 
         #endregion
 
-        #region Implementation of IList<IHostsFileEntry>
+        #region Implementation of IList<HostsFileEntryBase>
 
         /// <summary>
         ///     Searches for the specified entry and returns the zero-based index of the first occurance.
         /// </summary>
         /// <param name="entry">The entry to search for.</param>
         /// <returns></returns>
-        public int IndexOf(IHostsFileEntry entry)
+        public int IndexOf(HostsFileEntryBase entry)
         {
             return _entries.IndexOf(entry);
         }
@@ -196,7 +231,7 @@ namespace SharpHostsFile
         /// </summary>
         /// <param name="index">The index at which to insert the entry.</param>
         /// <param name="entry">The entry to insert.</param>
-        public void Insert(int index, IHostsFileEntry entry)
+        public void Insert(int index, HostsFileEntryBase entry)
         {
             _entries.Insert(index, entry);
         }
@@ -204,7 +239,7 @@ namespace SharpHostsFile
         /// <summary>
         ///     Removes the entry at the specified index;
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">The zero-based index of the element to remove.</param>
         public void RemoveAt(int index)
         {
             _entries.RemoveAt(index);
@@ -214,7 +249,7 @@ namespace SharpHostsFile
         ///     Gets or sets the entry at the specified index.
         /// </summary>
         /// <param name="index">The index of the entry to get or set.</param>
-        public IHostsFileEntry this[int index]
+        public HostsFileEntryBase this[int index]
         {
             get => _entries[index];
             set => _entries[index] = value;

@@ -8,7 +8,7 @@ namespace SharpHostsFile
     /// <summary>
     ///     Represents a hosts file map entry.
     /// </summary>
-    public class HostsFileMapEntry : HostsFileEntryBase, IHostsFileEntry
+    public class HostsFileMapEntry : HostsFileEntryBase
     {
         /// <summary>
         ///     Pattern to match hosts file map entry.
@@ -55,12 +55,7 @@ namespace SharpHostsFile
         /// </summary>
         public string Comment { get; set; }
 
-        #region Implementation of IHostsFileEntry
-
-        /// <summary>
-        ///     Entry line number.
-        /// </summary>
-        public int LineNumber { get; set; }
+        #region Implementation of HostsFileEntryBase
 
         /// <summary>
         ///     Returns the string reprsentation of the hosts entry.
@@ -76,7 +71,7 @@ namespace SharpHostsFile
         /// </summary>
         /// <param name="preserveFormatting">Preserves formatting, including whitespace of raw entry line.</param>
         /// <returns></returns>
-        public string ToString(bool preserveFormatting)
+        public override string ToString(bool preserveFormatting)
         {
             if (!string.IsNullOrEmpty(RawLine) && preserveFormatting)
             {

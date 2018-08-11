@@ -5,7 +5,7 @@ namespace SharpHostsFile
     /// <summary>
     ///     Represents a hosts file comment entry.
     /// </summary>
-    public class HostsFileComment : HostsFileEntryBase, IHostsFileEntry
+    public class HostsFileComment : HostsFileEntryBase
     {
         /// <summary>
         ///     Pattern to match hosts file map comment.
@@ -49,19 +49,14 @@ namespace SharpHostsFile
 
         #endregion
 
-        #region Implementation of IHostsFileEntry
-
-        /// <summary>
-        ///     Entry line number.
-        /// </summary>
-        public int LineNumber { get; set; }
+        #region Implementation of HostsFileEntryBase
 
         /// <summary>
         ///     Returns the string reprsentation of the hosts entry.
         /// </summary>
         /// <param name="preserveFormatting">Preserves formatting, including whitespace of raw entry line.</param>
         /// <returns></returns>
-        public string ToString(bool preserveFormatting)
+        public override string ToString(bool preserveFormatting)
         {
             return RegexHelper.ReplaceNamedGroup(RawLine, "comment", Comment, Pattern.Match(RawLine));
         }

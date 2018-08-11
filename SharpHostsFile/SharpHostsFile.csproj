@@ -47,7 +47,6 @@
     <Compile Include="HostsFileEntryBase.cs" />
     <Compile Include="HostsFileMapEntry.cs" />
     <Compile Include="HostsFileWhitespace.cs" />
-    <Compile Include="IHostsFileEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegexHelper.cs" />
   </ItemGroup>
