@@ -12,3 +12,17 @@ before_build:
   - ps: nuget restore
 build:
   project: SharpHostsFile.sln
+after_build:
+- ps: >-
+    .\nuget_pack.ps1
+artifacts:
+- path: '*.nupkg'
+  name: nuget_package
+deploy:
+  - provider: NuGet
+    api_key:
+      secure: 7iJJVXMbGnaDbwumUb6NlYmNBXhHWYEON8qv17eEsCPySOJ+ngrj7N29rpy/BKc9
+    skip_symbols: false
+    artifact: nuget_package
+    on:
+      branch: master
