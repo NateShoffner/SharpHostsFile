@@ -81,11 +81,14 @@ namespace SharpHostsFile
             if (fileName == null)
                 throw new ArgumentNullException(nameof(fileName));
 
-            using (var file = new StreamWriter(File.Open(fileName, FileMode.OpenOrCreate)))
+            using (var fs = File.Open(fileName, FileMode.OpenOrCreate))
             {
-                foreach (var entry in _entries)
+                using (var file = new StreamWriter(fs))
                 {
-                    file.WriteLine(entry.ToString(preserveFormatting));
+                    foreach (var entry in _entries)
+                    {
+                        file.WriteLine(entry.ToString(preserveFormatting));
+                    }
                 }
             }
         }
@@ -256,5 +259,25 @@ namespace SharpHostsFile
         }
 
         #endregion
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="entries"></param>
+        public void RemoveAll(IEnumerable<HostsFileEntryBase> entries)
+        {
+            foreach (var entry in entries)
+            {
+                Remove(entry);
+            }
+        }
+
+        public void AddAll(IEnumerable<HostsFileEntryBase> entries)
+        {
+            foreach (var entry in entries)
+            {
+                Add(entry);
+            }
+        }
     }
 }

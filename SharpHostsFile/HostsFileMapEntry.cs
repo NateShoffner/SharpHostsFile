@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Net;
 using System.Text.RegularExpressions;
 
@@ -75,8 +74,6 @@ namespace SharpHostsFile
         {
             if (!string.IsNullOrEmpty(RawLine) && preserveFormatting)
             {
-                var match = Pattern.Match(RawLine);
-                Console.WriteLine(RegexHelper.ReplaceNamedGroup(RawLine, "address", Address.ToString(), match));
                 var replaced = RegexHelper.ReplaceNamedGroups(RawLine, new Dictionary<string, string>
                     {
                         {"address", Address.ToString()},
