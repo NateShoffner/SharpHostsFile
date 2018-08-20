@@ -32,7 +32,7 @@ namespace SharpHostsFile
             if (!File.Exists(fileName))
                 throw new FileNotFoundException($"Hosts file not found at {fileName}");
 
-            var counter = 0;
+            var counter = 1;
 
             using (TextReader reader = new StreamReader(fileName))
             {
