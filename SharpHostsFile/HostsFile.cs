@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Text;
 
 namespace SharpHostsFile
 {
@@ -34,10 +35,10 @@ namespace SharpHostsFile
 
             var counter = 0;
 
-            using (var sr = new StreamReader(fileName))
+            using (TextReader reader = new StreamReader(fileName))
             {
                 string line;
-                while ((line = sr.ReadLine()) != null)
+                while ((line = reader.ReadLine()) != null)
                 {
                     var type = GetHostsFileEntryType(line);
 
@@ -84,14 +85,11 @@ namespace SharpHostsFile
             if (fileName == null)
                 throw new ArgumentNullException(nameof(fileName));
 
-            using (var fs = File.Open(fileName, FileMode.OpenOrCreate))
+            using (TextWriter writer = new StreamWriter(fileName))
             {
-                using (var file = new StreamWriter(fs) {AutoFlush = true})
+                foreach (var entry in _entries)
                 {
-                    foreach (var entry in _entries)
-                    {
-                        file.WriteLine(entry.ToString(preserveFormatting));
-                    }
+                    writer.WriteLine(entry.ToString(preserveFormatting));
                 }
             }
         }
