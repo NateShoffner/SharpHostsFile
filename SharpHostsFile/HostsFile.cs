@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Text;
 
 namespace SharpHostsFile
 {
@@ -45,12 +44,15 @@ namespace SharpHostsFile
                     HostsFileEntryBase entry = null;
 
                     if (type != null)
-                    {
                         if (type == typeof(HostsFileWhitespace))
+                        {
                             entry = new HostsFileWhitespace(line) {LineNumber = counter};
+                        }
 
                         else if (type == typeof(HostsFileComment))
+                        {
                             entry = new HostsFileComment(line, line) {LineNumber = counter};
+                        }
 
                         else if (type == typeof(HostsFileMapEntry))
                         {
@@ -64,8 +66,9 @@ namespace SharpHostsFile
                         }
 
                         else
+                        {
                             entry = new HostsFileUnknownEntry(line);
-                    }
+                        }
 
                     if (entry != null)
                         _entries.Add(entry);
