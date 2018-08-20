@@ -83,7 +83,7 @@ namespace SharpHostsFile
 
             using (var fs = File.Open(fileName, FileMode.OpenOrCreate))
             {
-                using (var file = new StreamWriter(fs))
+                using (var file = new StreamWriter(fs) {AutoFlush = true})
                 {
                     foreach (var entry in _entries)
                     {
@@ -133,6 +133,25 @@ namespace SharpHostsFile
             return line.TrimStart().StartsWith("#")
                 ? typeof(HostsFileComment)
                 : typeof(HostsFileMapEntry);
+        }
+
+        /// <summary>
+        /// </summary>
+        /// <param name="entries"></param>
+        public void RemoveAll(IEnumerable<HostsFileEntryBase> entries)
+        {
+            foreach (var entry in entries)
+            {
+                Remove(entry);
+            }
+        }
+
+        public void AddAll(IEnumerable<HostsFileEntryBase> entries)
+        {
+            foreach (var entry in entries)
+            {
+                Add(entry);
+            }
         }
 
         #region Implementation of IEnumerable
@@ -259,25 +278,5 @@ namespace SharpHostsFile
         }
 
         #endregion
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="entries"></param>
-        public void RemoveAll(IEnumerable<HostsFileEntryBase> entries)
-        {
-            foreach (var entry in entries)
-            {
-                Remove(entry);
-            }
-        }
-
-        public void AddAll(IEnumerable<HostsFileEntryBase> entries)
-        {
-            foreach (var entry in entries)
-            {
-                Add(entry);
-            }
-        }
     }
 }

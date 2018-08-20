@@ -1,7 +1,7 @@
 SharpHostsFile
 ====================
 
-[![Build status](https://ci.appveyor.com/api/projects/status/6la9stqxod5i96x/branch/master?svg=true)](https://ci.appveyor.com/project/NateShoffner/sharphostsfile/branch/master)
+[![Build status](https://ci.appveyor.com/api/projects/status/6la9stqxod5i96xs?svg=true)](https://ci.appveyor.com/project/NateShoffner/sharphostsfile/branch/master)
 
 SharpHostsFile is a .NET wrapper library for the Windows hosts file.
 
