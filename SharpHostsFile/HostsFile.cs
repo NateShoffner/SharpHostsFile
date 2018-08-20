@@ -48,10 +48,10 @@ namespace SharpHostsFile
                         if (type == typeof(HostsFileWhitespace))
                             entry = new HostsFileWhitespace(line) {LineNumber = counter};
 
-                        if (type == typeof(HostsFileComment))
+                        else if (type == typeof(HostsFileComment))
                             entry = new HostsFileComment(line, line) {LineNumber = counter};
 
-                        if (type == typeof(HostsFileMapEntry))
+                        else if (type == typeof(HostsFileMapEntry))
                         {
                             var match = HostsFileMapEntry.Pattern.Match(line);
 
@@ -61,6 +61,9 @@ namespace SharpHostsFile
                                     match.Groups["hostname"].Value,
                                     match.Groups["comment"].Value) {LineNumber = counter};
                         }
+
+                        else
+                            entry = new HostsFileUnknownEntry(line);
                     }
 
                     if (entry != null)

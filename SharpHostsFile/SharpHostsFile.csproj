@@ -45,6 +45,7 @@
     <Compile Include="HostsFile.cs" />
     <Compile Include="HostsFileComment.cs" />
     <Compile Include="HostsFileEntryBase.cs" />
+    <Compile Include="HostsFileUnknownEntry.cs" />
     <Compile Include="HostsFileMapEntry.cs" />
     <Compile Include="HostsFileWhitespace.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
