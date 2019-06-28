@@ -150,6 +150,9 @@ namespace SharpHostsFile
             }
         }
 
+        /// <summary>
+        /// </summary>
+        /// <param name="entries"></param>
         public void AddAll(IEnumerable<HostsFileEntryBase> entries)
         {
             foreach (var entry in entries)

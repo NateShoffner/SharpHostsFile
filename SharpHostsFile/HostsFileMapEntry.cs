@@ -12,7 +12,7 @@ namespace SharpHostsFile
         /// <summary>
         ///     Pattern to match hosts file map entry.
         /// </summary>
-        public static readonly Regex Pattern = new Regex(@"^\s*(?<address>\S+)\s+(?<hostname>\S+)\s*($|#(?<comment>\S+))", RegexOptions.Compiled);
+        public static readonly Regex Pattern = new Regex(@"^\s*(?<address>\S+)\s+(?<hostname>\S+)\s*(\#\s*(?<comment>\S+))?$", RegexOptions.Compiled);
 
         /// <summary>
         ///     Initializes a new instance of the SharpHostsFile.HostsFileMapEntry class.
@@ -62,7 +62,7 @@ namespace SharpHostsFile
         /// <returns></returns>
         public override string ToString()
         {
-            return $"{Address} {Hostname}{(Comment != null ? $" {Comment}" : "")}";
+            return $"{Address} {Hostname}{(Comment != null ? $" # {Comment}" : "")}";
         }
 
         /// <summary>
