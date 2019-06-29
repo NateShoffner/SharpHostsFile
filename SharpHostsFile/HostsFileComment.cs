@@ -1,17 +1,10 @@
-﻿using System.Text.RegularExpressions;
-
-namespace SharpHostsFile
+﻿namespace SharpHostsFile
 {
     /// <summary>
     ///     Represents a hosts file comment entry.
     /// </summary>
     public class HostsFileComment : HostsFileEntryBase
     {
-        /// <summary>
-        ///     Pattern to match hosts file map comment.
-        /// </summary>
-        public static readonly Regex Pattern = new Regex(@"\s#\s*(?<comment>.*)", RegexOptions.Compiled);
-
         /// <summary>
         ///     Initializes a new instance of the SharpHostsFile.HostsFileComment class.
         /// </summary>
@@ -58,7 +51,7 @@ namespace SharpHostsFile
         /// <returns></returns>
         public override string ToString(bool preserveFormatting)
         {
-            return RegexHelper.ReplaceNamedGroup(RawLine, "comment", Comment, Pattern.Match(RawLine));
+            return preserveFormatting ? RawLine : Comment;
         }
 
         #endregion
